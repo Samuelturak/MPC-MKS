@@ -1861,7 +1861,7 @@ void StartAcceleroTask(void const * argument)
  8000b76:	f7ff fc23 	bl	80003c0 <lis2dw12_data_rate_set>
 	for(;;)
 	{
-		static uint8_t j = 0;
+		static uint8_t j = 0; // j stays the same
 		uint8_t samples;
 		int16_t raw_acceleration[3];
 		lis2dw12_fifo_data_level_get(&lis2dw12, &samples);
@@ -1877,8 +1877,8 @@ void StartAcceleroTask(void const * argument)
  8000b8c:	2200      	movs	r2, #0
  8000b8e:	701a      	strb	r2, [r3, #0]
  8000b90:	e00c      	b.n	8000bac <StartAcceleroTask+0x6c>
-			// Read acceleration data
-			lis2dw12_acceleration_raw_get(&lis2dw12, raw_acceleration);
+
+			lis2dw12_acceleration_raw_get(&lis2dw12, raw_acceleration); // Reading acceleration data
  8000b92:	2308      	movs	r3, #8
  8000b94:	18fa      	adds	r2, r7, r3
  8000b96:	4b1d      	ldr	r3, [pc, #116]	; (8000c0c <StartAcceleroTask+0xcc>)
@@ -1910,7 +1910,7 @@ void StartAcceleroTask(void const * argument)
  8000bc4:	4b12      	ldr	r3, [pc, #72]	; (8000c10 <StartAcceleroTask+0xd0>)
  8000bc6:	701a      	strb	r2, [r3, #0]
 
-		xQueueSend(xVisualQueueHandle, &raw_acceleration[0], 0);
+		xQueueSend(xVisualQueueHandle, &raw_acceleration[0], 0); // sending data to VisualTask (receiver)
  8000bc8:	4b12      	ldr	r3, [pc, #72]	; (8000c14 <StartAcceleroTask+0xd4>)
  8000bca:	6818      	ldr	r0, [r3, #0]
  8000bcc:	2408      	movs	r4, #8
@@ -1918,10 +1918,11 @@ void StartAcceleroTask(void const * argument)
  8000bd0:	2300      	movs	r3, #0
  8000bd2:	2200      	movs	r2, #0
  8000bd4:	f003 f8a0 	bl	8003d18 <xQueueGenericSend>
-		osDelay(50);
+		osDelay(50);	// delaying data sending
  8000bd8:	2032      	movs	r0, #50	; 0x32
  8000bda:	f002 fec1 	bl	8003960 <osDelay>
 
+		// arranging printing the data each 500ms only
 		if (j > 10) {
  8000bde:	4b0c      	ldr	r3, [pc, #48]	; (8000c10 <StartAcceleroTask+0xd0>)
  8000be0:	781b      	ldrb	r3, [r3, #0]

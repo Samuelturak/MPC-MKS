@@ -9,5 +9,5 @@
 ../Core/Src/main.c:379:6:StartDefaultTask	16	static
 ../Core/Src/main.c:397:6:StartVisualTask	32	static
 ../Core/Src/main.c:453:6:StartAcceleroTask	32	static
-../Core/Src/main.c:528:6:HAL_TIM_PeriodElapsedCallback	16	static
-../Core/Src/main.c:545:6:Error_Handler	8	static,ignoring_inline_asm
+../Core/Src/main.c:529:6:HAL_TIM_PeriodElapsedCallback	16	static
+../Core/Src/main.c:546:6:Error_Handler	8	static,ignoring_inline_asm
