@@ -98,7 +98,6 @@ static void uart_process_command(char *cmd)
 	else if (strcasecmp(token, "LED1") == 0) {
 		token = strtok(NULL, " ");
 		if (strcasecmp(token, "ON") == 0) {
-
 			HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1);
 		}
 		else if (strcasecmp(token, "OFF") == 0) {
